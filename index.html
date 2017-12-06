@@ -1,19 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Taginate The World!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href="styles.css" rel="stylesheet">
   </head>
-  <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
 
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
+  <body>
+    <div class="jumbotron">
+      <h1>THE TAGINATOR</h1>
+    </div>
+    <div class="container">
+      <form name="taginator_form" onsubmit="return validateForm();">
+
+        <div class="form-group">
+          <label for="affiliate_id">Affiliate ID:</label>
+          <input class="form-control" id="affiliate_id" aria-describedby="affiliate_id_help" placeholder="Ex: 1234567">
+          <small id="affiliate_id_help" class="form-text text-muted">This is the affiliate ID of the publisher you are creating tags for.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="tag_names">Tag Names:</label>
+          <textarea class="form-control" id="tag_names" aria-describedby="tag_name_help" placeholder="Paste tag names here"></textarea>
+          <small id="tag_name_help" class="form-text text-muted">Tag names should be on their own line.  Pasting an excel column achieves this.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="price_floor">Price Floor:</label>
+          <input class="form-control" id="price_floor" value= "0">
+        </div>
+
+        <div class="form-group">
+          <label for="output-filename">Output Filename:</label>
+          <input class="form-control" id="output-filename" aria-describedby="affiliateIdHelp" placeholder="filename_here">
+        </div>
+
+        <div class="form-check">
+          <br>
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" id="efp">
+            Use EFP
+          </label>
+        </div>
+
+        <!--button type="button" onclick="clickSubmit();" class="btn btn-primary">Submit</button-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+    </div> <!--end container div-->
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="./helpers.js" rel="javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  
   </body>
+
 </html>
