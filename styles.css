@@ -11,3 +11,7 @@ h1 {
 .validation_error{
     color: red;
 }
+
+.input_valid{
+    color: green;
+}

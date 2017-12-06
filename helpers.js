@@ -1,48 +1,123 @@
 require('./taginate.js');
     
-var aid, tag_names, price_floor, efp;
+var aid, tag_names, price_floor, file_name, efp;
 
 function validateForm(){
+    let validForm = true;
 
-    //grab values from DOM
+//grab values from DOM
     aid = document.getElementById("affiliate_id").value;
     tag_names = document.getElementById("tag_names").value;
     price_floor = document.getElementById("price_floor").value;
+    file_name = document.getElementById("file_name").value;
     efp = document.getElementById("efp").value;
 
-    //validate affiliate ID -- only numbers
-    if(isNaN(aid) || aid.length === 0){
+//validate affiliate ID -- only numbers
+    if(aid.length === 0){
         let element = document.getElementById("affiliate_id_help");
         element.classList.remove("text-muted");
+        element.classList.remove("input_valid");
         element.classList.add("validation_error");
-        element.innerHTML = "AFFILIATE ID SHOULD ONLY BE NUMBERS";
-        return false;
+        element.innerHTML = "Please input affiliate ID";
+        validForm = false;
+    }
+    else if(isNaN(aid) || aid.length === 0){
+        let element = document.getElementById("affiliate_id_help");
+        element.classList.remove("text-muted");
+        element.classList.remove("input_valid");
+        element.classList.add("validation_error");
+        element.innerHTML = "Affiliate ID should only be numbers";
+        validForm = false;
+    }
+    else {
+        let element = document.getElementById("affiliate_id_help");
+        element.classList.remove("validation_error");
+        element.classList.remove("text-muted");
+        element.classList.add("input_valid");
+        element.innerHTML = "Affiliate ID Valid";
     }
 
-    //validate tagNames -- each tag name has valid size
+//validate tagNames -- each tag name has valid size
     let tagNameArray = tag_names.split("\n");
     tagNameArray = filterBlanks(tagNameArray);
 
-    if(!tagsHaveSizes(tagNameArray) || tagNameArray.length === 0){
+    if(tagNameArray.length === 0){
         let element = document.getElementById("tag_name_help");
+        element.classList.remove("input_valid");
+        element.classList.remove("text-muted");
+        element.classList.add("validation_error");
+        element.innerHTML = "Please paste tags above";
+        validForm = false;
+    }
+
+    else if(!tagsHaveSizes(tagNameArray)){
+        let element = document.getElementById("tag_name_help");
+        element.classList.remove("input_valid");
         element.classList.remove("text-muted");
         element.classList.add("validation_error");
         element.innerHTML = buildErrorMessage(tagNameArray, "missing");
-        return false;
+        validForm = false;
     }
     else if(!tagSizesValid(tagNameArray)){
         let element = document.getElementById("tag_name_help");
+        element.classList.remove("input_valid");
         element.classList.remove("text-muted");
         element.classList.add("validation_error");
         element.innerHTML = buildErrorMessage(tagNameArray, "invalid");
-        return false;
+        validForm = false;
     }
-    alert("validations passed");
-    //changed to false for troubleshooting
-    return false;
+    else {
+        let element = document.getElementById("tag_name_help");
+        element.classList.remove("validation_error");
+        element.classList.remove("text-muted");
+        element.classList.add("input_valid");
+        element.innerHTML = "Tag Names Valid";
+    }
     
-    //validate pricefloor -- just a number
-    //validate file name -- no spaces
+//validate pricefloor -- just a number
+    if(isNaN(price_floor) || price_floor > 5 || price_floor < 0 || price_floor === ""){
+        let element = document.getElementById("price_floor_help");
+        element.classList.remove("input_valid");
+        element.classList.remove("text-muted");
+        element.classList.add("validation_error");
+        element.innerHTML = "Price floor should be a number between 0 - 5";
+        validForm = false;
+    }
+    else {
+        let element = document.getElementById("price_floor_help");
+        element.classList.remove("text-muted");
+        element.classList.remove("validation_error");
+        element.classList.add("input_valid");
+        element.innerHTML = "Price Floor Valid";
+    }
+
+//validate file name -- no spaces
+    if(file_name.length === 0){
+        let element = document.getElementById("file_name_help");
+        element.classList.remove("input_valid");
+        element.classList.remove("text-muted");
+        element.classList.add("validation_error");
+        element.innerHTML = "Please input file name";
+        validForm = false;
+    }
+
+    else if(file_name.indexOf(" ") != -1){
+        let element = document.getElementById("file_name_help");
+        element.classList.remove("input_valid");
+        element.classList.remove("text-muted");
+        element.classList.add("validation_error");
+        element.innerHTML = "File name should contain no spaces";
+        validForm = false;
+    }
+    else {
+        let element = document.getElementById("file_name_help");
+        element.classList.remove("text-muted");
+        element.classList.remove("validation_error");
+        element.classList.add("input_valid");
+        element.innerHTML = "File Name Valid";
+    }
+
+    return validForm;
 }
 
 

@@ -31,19 +31,27 @@
 
         <div class="form-group">
           <label for="price_floor">Price Floor:</label>
-          <input class="form-control" id="price_floor" value= "0">
+          <input class="form-control" id="price_floor" aria-describedby="price_floor_help" value= "0">
+          <small id="price_floor_help" class="form-text text-muted">Starting price floor for all tags.</small>
         </div>
 
         <div class="form-group">
-          <label for="output-filename">Output Filename:</label>
-          <input class="form-control" id="output-filename" aria-describedby="affiliateIdHelp" placeholder="filename_here">
+          <label for="file_name">Output File Name:</label>
+          <input class="form-control" id="file_name" aria-describedby="file_name_help" placeholder="file_name_here">
+          <small id="file_name_help" class="form-text"></small>
         </div>
 
         <div class="form-check">
-          <br>
           <label class="form-check-label">
             <input type="checkbox" class="form-check-input" id="efp">
             Use EFP
+          </label>
+        </div>
+
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" id="header_tags">
+            Header Bidding Tags
           </label>
         </div>
 
