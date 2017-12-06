@@ -6,6 +6,7 @@ h1 {
 
 .jumbotron{
     background: #008EEB;
+    height: 70px;
 }
 
 .validation_error{
