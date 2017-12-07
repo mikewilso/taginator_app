@@ -1,4 +1,4 @@
-require('./taginate.js');
+const taginator = require('./taginate.js');
     
 var aid, tag_names, price_floor, file_name, efp;
 
@@ -10,7 +10,6 @@ function validateForm(){
     tag_names = document.getElementById("tag_names").value;
     price_floor = document.getElementById("price_floor").value;
     file_name = document.getElementById("file_name").value;
-    efp = document.getElementById("efp").value;
 
 //validate affiliate ID -- only numbers
     if(aid.length === 0){
@@ -72,6 +71,17 @@ function validateForm(){
     return validForm;
 }
 
+function startTaginator(){
+    alert("Put code information here to confirm");
+    let data = {};
+    data.aid = document.getElementById("affiliate_id").value;
+    data.tag_names =  createTagObjectsArray(filterBlanks(document.getElementById("tag_names").value.split("\n")));
+    data.price_floor = document.getElementById("price_floor").value;
+    data.file_name = document.getElementById("file_name").value;
+    data.efp = document.getElementById("efp").checked;
+    data.header_tags = document.getElementById("header_tags").checked;
+    console.log(data);
+}
 
 function buildErrorMessage(arr, type){
 
@@ -125,7 +135,17 @@ function filterBlanks(arr){
     return blanklessArray;
 }
 
-
+function createTagObjectsArray(tagNames){
+    let tagObjectArray = [];
+    for(let i = 0; i < tagNames.length; i++){
+        let currentObj = {};
+        currentObj.name = tagNames[i];
+        currentObj.size = tagNames[i].match(/\d+[xX]\d+/)[0];
+        currentObj.size_code = getSizeId(tagNames[i].match(/\d+[xX]\d+/)[0]);
+        tagObjectArray.push(currentObj);
+    }
+    return tagObjectArray;
+}
 
 function tagsHaveSizes(arr){
     for(let i = 0; i < arr.length; i++){
@@ -140,7 +160,6 @@ function tagsHaveSizes(arr){
 function tagSizesValid(arr){
     for(let i = 0; i < arr.length; i++){
         let currentSize = arr[i].match(/\d+[xX]\d+/)[0];
-        console.log(currentSize);
         if(getSizeId(currentSize) === undefined){
             return false;
         }
@@ -151,8 +170,6 @@ function tagSizesValid(arr){
 
 
 function getSizeId(size){
-    console.log(size);
-    console.log(typeof(size));
     //toLowerCase() is the issue right now.  TypeError... BUT WHYYYYY
     let standardizedSize = size.toLowerCase();
     const sizeIdKey = {
